@@ -1,11 +1,13 @@
 package com.viaplay.viaplay.service;
 
 import com.viaplay.viaplay.model.*;
+import org.json.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -32,6 +34,8 @@ public class ArtistService {
     private RestTemplate restTemplate;
 
     private final String RELATION = "discogs";
+    private final String TYPE = "Album";
+
     private final Logger LOGGER = LoggerFactory.getLogger(ArtistService.class);
 
     public ArtistService(RestTemplateBuilder restTemplateBuilder) {
@@ -82,6 +86,7 @@ public class ArtistService {
     public List<AlbumCover> getCoverInfo(List<ReleaseGroup> releaseGroups) {
 
         return releaseGroups.stream()
+                .filter(type -> type.getType().equals(TYPE))
                 .map(releaseGroup -> callCoverArt(releaseGroup))
                 .collect(Collectors.toList());
     }
@@ -89,29 +94,31 @@ public class ArtistService {
     private AlbumCover callCoverArt(ReleaseGroup releaseGroup) {
 
         String url = coverArtApi + releaseGroup.getAlbumId();
-        ResponseEntity<AlbumCoverDTO> response;
+        AlbumCoverDTO albumCoverDTO = new AlbumCoverDTO();
+        ResponseEntity<AlbumCoverDTO> response = new ResponseEntity<>(albumCoverDTO, HttpStatus.NO_CONTENT);
 
         try {
             response = restTemplate.getForEntity(url, AlbumCoverDTO.class);
         } catch (HttpClientErrorException e) {
             LOGGER.error("Did not find any album-cover for id " + releaseGroup.getAlbumId());
-            return new AlbumCover();
         } catch (Exception e) {
             LOGGER.error("Error " + e.getMessage() + " is thrown for mbid " + releaseGroup.getAlbumId());
-            return new AlbumCover();
         }
 
         Image image = new Image();
-        response.getBody().getImages()
-                .stream()
-                .filter(Image::isFrontCover)
-                .map(Image::getImage)
-                .forEach(image1 -> image.setImage(image1));
+        if (response.getStatusCode().equals(HttpStatus.OK)) {
+            response.getBody().getImages()
+                    .stream()
+                    .filter(Image::isFrontCover)
+                    .map(Image::getImage)
+                    .forEach(image1 -> image.setImage(image1));
+        }
+
 
         return mapToAlbumCover(releaseGroup, image);
     }
 
-    private String getDiscId(String resource) {
+    protected String getDiscId(String resource) {
         String[] split = resource.split("/");
         return split[split.length - 1];
     }

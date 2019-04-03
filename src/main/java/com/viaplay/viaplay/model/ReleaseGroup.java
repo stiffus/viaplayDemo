@@ -10,8 +10,12 @@ import java.io.Serializable;
 
         @JsonProperty("id")
         private String albumId;
+
         @JsonProperty("title")
         private String albumTitle;
+
+        @JsonProperty("primary-type")
+        private String type;
 
 
         public String getAlbumId() {
@@ -28,5 +32,13 @@ import java.io.Serializable;
 
         public void setAlbumTitle(String albumTitle) {
             this.albumTitle = albumTitle;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
         }
     }
