@@ -113,7 +113,6 @@ public class ArtistService {
                     .forEach(image1 -> image.setImage(image1));
         }
 
-
         return mapToAlbumCover(releaseGroup, image);
     }
 
