@@ -7,7 +7,13 @@ To be able to use this api, you need to have:
 
 - maven 
 - spring-boot
--
+- Java 10
 
-<h4>Information</h4>
-To be able to fetch artist information you need to have a mbid (MusicBrainz id), that Id is what the basis for api since the first call we do is to MusicBrainz and we base the other calls on the information we recieve from here.
+## Information
+To be able to fetch artist information you need to have a mbid (MusicBrainz id),
+that Id is what the basis for api since the first call we do is to MusicBrainz and we base the other calls on the information we recieve from here.
+
+## Build and Run
+After cloning the repository, make sure that you are standing in the project root folder (viaplay/viaplay) and then you do a
+``` mvn clean install```.
+
