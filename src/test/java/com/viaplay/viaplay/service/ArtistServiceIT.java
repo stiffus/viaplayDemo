@@ -38,29 +38,16 @@ public class ArtistServiceIT {
     }
 
     @Test
-    public void getCoverInfoShouldReturnNull() {
-
-        ReleaseGroup releaseGroup = new ReleaseGroup();
-        releaseGroup.setAlbumId("wdesfrgdf");
-        releaseGroup.setAlbumTitle("sergdt");
-
-        List<AlbumCover> coverInfo = artistService.getCoverInfo(Collections.singletonList(releaseGroup));
-
-        assertThat(coverInfo.get(0).getAlbumCoverUrl()).isNull();
-        assertThat(coverInfo.get(0).getAlbumId()).isNull();
-        assertThat(coverInfo.get(0).getAlbumTitle()).isNull();
-
-    }
-
-    @Test
     public void getCoverInfoShouldReturnAlbumCover() {
 
         String albumTitle = "Anthology";
         String albumId = "37906983-1005-36fb-b8e7-3a04687e6f4f";
+        String type = "Album";
 
         ReleaseGroup releaseGroup = new ReleaseGroup();
         releaseGroup.setAlbumId(albumId);
         releaseGroup.setAlbumTitle(albumTitle);
+        releaseGroup.setType(type);
 
         List<AlbumCover> coverInfo = artistService.getCoverInfo(Collections.singletonList(releaseGroup));
 

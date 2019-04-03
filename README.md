@@ -7,6 +7,7 @@ To be able to use this api, you need to have:
 
 - maven 
 - spring-boot
+-
 
 <h4>Information</h4>
 To be able to fetch artist information you need to have a mbid (MusicBrainz id), that Id is what the basis for api since the first call we do is to MusicBrainz and we base the other calls on the information we recieve from here.
