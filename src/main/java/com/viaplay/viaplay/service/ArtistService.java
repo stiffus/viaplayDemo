@@ -1,7 +1,6 @@
 package com.viaplay.viaplay.service;
 
 import com.viaplay.viaplay.model.*;
-import org.json.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
