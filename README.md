@@ -55,3 +55,5 @@ deb2225c-3781-46ac-9014-bbe94a1d86ca
 53b106e7-0cc6-42cc-ac95-ed8d30a3a98e
 0383dadf-2a4e-4d10-a46a-e9e041da8eb3
 f90e8b26-9e52-4669-a5c9-e28529c47894
+
+http://localhost:8090/artist/artistInfo/deb2225c-3781-46ac-9014-bbe94a1d86ca
